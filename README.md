@@ -43,8 +43,8 @@ The modeled environment is a simple 1D hallway with four positions (State 0 to S
 | **Terminal State** | State 3 | The charging station (Goal). |
 | **Discount Factor ($\gamma$)** | 0.9 | Future rewards are discounted by 10% per step. |
 | **Move Success ($P_{MOVE}$)** | 0.8 | The chosen action succeeds with 80% probability. |
-| **Goal Reward ($R_{goal}$)** | +10.0 | Immediate reward received *upon arrival* at the Terminal State 3. |
-| **Step Cost ($R_{step}$)** | -1.0 | Cost incurred for every move attempt. |
+| **Reward upon Goal Arrival** | +9.0 | Calculated as $R_{goal} (10.0) + R_{step} (-1.0)$. |
+| **Step Cost ($R_{step}$)** | -1.0 | Cost incurred for every move attempt to a non-terminal state. |
 
 ## 🛠️ Methodology
 
@@ -62,16 +62,16 @@ The project flow involves:
 
 ## 📊 Results
 
-The Value Iteration algorithm successfully converged after a small number of iterations. The optimal policy ($\pi^*$) directs the robot to always move toward the goal (State 3).
+The Value Iteration algorithm successfully converged to the following optimal value function and policy, using the parameters $\gamma=0.9$ and $P_{MOVE}=0.8$:
 
 | State ($s$) | Optimal Action $\pi^*(s)$ | Value $V^*(s)$ |
 | :--- | :--- | :--- |
-| **0** | `RIGHT` | 5.4852 |
-| **1** | `RIGHT` | 7.2144 |
-| **2** | `RIGHT` | 8.8041 |
+| **0** | `RIGHT` | 11.0606 |
+| **1** | `RIGHT` | 13.9857 |
+| **2** | `RIGHT` | 17.3171 |
 | **3** | `STAY` (Terminal) | 10.0000 |
 
-*The resulting $V^*(s)$ values indicate the long-term expected reward gained by starting in state $s$ and acting optimally thereafter.*
+*The resulting $V^*(s)$ values indicate the high expected long-term reward gained by starting in state $s$ and acting optimally thereafter, driving the robot toward the goal.*
 
 ## 🛠️ Dependencies
 
